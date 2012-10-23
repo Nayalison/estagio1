@@ -2,6 +2,7 @@ var MemeInvasion = cc.LayerColor.extend({
 	 _eventControl:null,
 	 _inimigoScene:null,
 	 _control:null,
+     _placar:null,
     init:function(){
         this._super();
         this.initWithColor(new cc.Color4B(0,0,0,0));
@@ -18,13 +19,16 @@ var MemeInvasion = cc.LayerColor.extend({
         this.addChild(this._eventControl);
         this._eventControl.setPosition(new cc.Point(0,size.height/2));
         this._eventControl.scheduleUpdate();
-        this.schedule(this.update);
 		
 		_inimigoScene = new InimigoScene();
 		_inimigoScene.setControl(this._control);
 		_inimigoScene.setConteiner(this);
 		_inimigoScene.init();
 		
+        this._placar = new Placar(this._control);
+        this.addChild(this._placar);
+
+        this.schedule(this.update);
 		
 
         return true;
@@ -33,6 +37,7 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
     },
     update:function(dt){
+        this._placar.update();
     },
     onTouchesEnded:function (pTouch,pEvent){
         this._eventControl.handleTouch(pTouch[0].getLocation());

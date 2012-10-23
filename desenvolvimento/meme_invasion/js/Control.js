@@ -1,19 +1,19 @@
-var Control =  (function(){
-	var FATOR_PONTOS = 100;
-	var NIVEIS_DIFICULDADES = [1, 1.5, 2, 2.5];
-	var fase_number = 1;
-	var points = 0;
+var Control =  function(){
+	this.FATOR_PONTOS = 10;
+	this.NIVEIS_DIFICULDADES = [1, 1.5, 2, 2.5];
+	this.fase_number = 1;
+	this.points = 0;
 	
 	this.marcarPonto = function() {
-		points++;
+		this.points++;
 		this.verificarPontuacao();
 	};
 	
 	this.verificarPontuacao = function() {
-		var maxPontos = this.FATOR_PONTOS * NIVEIS_DIFICULDADES[ fase_number - 1 ];
-		if( points >= maxPontos) {
-			fase_number++;
-			points = 0;
+		var maxPontos = this.FATOR_PONTOS * this.NIVEIS_DIFICULDADES[ this.fase_number - 1 ];
+		if( this.points >= maxPontos) {
+			this.fase_number++;
+			this.points = 0;
 		}
 	};
 	
@@ -29,4 +29,4 @@ var Control =  (function(){
 		return this.fase_number;
 	}
 	
-});
+};

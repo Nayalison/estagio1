@@ -1,7 +1,7 @@
 var Inimigo = cc.Sprite.extend({
     _conteiner : null,
 	_control:null,
-    ctor:function(conteiner, control) {
+    ctor:function(conteiner,control) {
 		this._conteiner = conteiner;
 		this._control = control;
         this.initWithFile("./images/troll_face_completo.jpg");
@@ -14,7 +14,11 @@ var Inimigo = cc.Sprite.extend({
         
         return true;
     },
-     process:function() {
+
+    pontuar:function() {
+    	this._control.marcarPonto();
+    },
+    process:function() {
 			if(!this.isAlive()) {
 				this._conteiner.removeChild(this);
 				this.cleanup();
@@ -40,7 +44,7 @@ var Inimigo = cc.Sprite.extend({
 			if(this.testCollisionX(child.getPosition(), this.getPosition()) && 
 				this.testCollisionY(child.getPosition(), this.getPosition())) {
 				this._conteiner.removeChild(child);
-				this.control.marcarPonto();
+				this.pontuar();
 			  return false; 
 			}
 		  }
@@ -81,11 +85,12 @@ var InimigoScene = (function(){
 	//TODO refatorar
 	this.init = function() {
 		var teste = this.conteiner;
+		var control = this.control;
 		//var controle = this.control;
 		setInterval(function() {
 			var count = gerarNumero(1,3);
 				for(i=1; i<= count; i++) {
-					var inimigo = criarInimigo(teste, control);
+					var inimigo = criarInimigo(teste,control);
 					teste.addChild(inimigo);
 				}
 			}, gerarNumero(limiteInferior,limiteSuperior));		
@@ -95,8 +100,8 @@ var InimigoScene = (function(){
 		return this.conteiner;
 	};
 	
-	var criarInimigo = function(conteiner) {
-		inimigo = new Inimigo(conteiner);
+	var criarInimigo = function(conteiner, control) {
+		inimigo = new Inimigo(conteiner, control);
 		inimigo.setPosition(new cc.Point(800, gerarNumero(63, 500)));
 		return inimigo;
 	};
