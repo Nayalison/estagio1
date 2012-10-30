@@ -88,8 +88,8 @@ var InimigoScene = (function(){
 		var control = this.control;
 		//var controle = this.control;
 		setInterval(function() {
-			var count = gerarNumero(1,3);
-				for(i=1; i<= count; i++) {
+			var count = gerarNumero(1,control.getNumeroInimigosFase);
+				for(i=1; i<= control.getNumeroInimigosFase(); i++) {
 					var inimigo = criarInimigo(teste,control);
 					teste.addChild(inimigo);
 				}

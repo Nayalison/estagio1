@@ -3,12 +3,13 @@ var MemeInvasion = cc.LayerColor.extend({
 	 _inimigoScene:null,
 	 _control:null,
      _placar:null,
-    init:function(){
+     _possuiPoder: true,
+    init:function(control){
         this._super();
-        this.initWithColor(new cc.Color4B(0,0,0,0));
+        this.initWithColor(new cc.Color4B(100,100,100,100));
         var size = cc.Director.getInstance().getWinSize();
 		
-		this._control = new Control();
+		this._control = control;
 		
         this._eventControl = new EventControl();
         this.setTouchEnabled(true);
@@ -24,9 +25,10 @@ var MemeInvasion = cc.LayerColor.extend({
 		_inimigoScene.setControl(this._control);
 		_inimigoScene.setConteiner(this);
 		_inimigoScene.init();
-		
-        this._placar = new Placar(this._control);
-        this.addChild(this._placar);
+     
+        
+
+        //initWithString([label1, cc.TextureCache.getInstance(),200, 70,' ']);
 
         this.schedule(this.update);
 		
@@ -37,7 +39,9 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
     },
     update:function(dt){
-        this._placar.update();
+        
+
+        //this._placar.update();
     },
     onTouchesEnded:function (pTouch,pEvent){
         this._eventControl.handleTouch(pTouch[0].getLocation());
@@ -54,20 +58,32 @@ var MemeInvasion = cc.LayerColor.extend({
        this._eventControl.handleKey(e);
     },
     handleKey:function(e) {
-       if(e === cc.KEY.enter) {
+       if(e === cc.KEY.enter ) {
             var p = this._eventControl.getPosition();
             var poder = new Poder(this);
              poder.setPosition(p);
             this.addChild(poder);
         } 
+    },
+    recarregar:function() {
+        this._possuiPoder = true;
     }
 });
 
 MemeInvasionScene = cc.Scene.extend({
+    _control:null,
+    _placar:null,
     onEnter:function(){
         this._super();
+        this._control = new Control();
         var layer = new MemeInvasion();
-        layer.init();
+        layer.init(this._control);
         this.addChild(layer);
+
+
+        this._placar = new Placar(this._control);
+        this._placar.position = new cc.Point(10, 200);
+        this.addChild(this._placar);
+
     }
 });
