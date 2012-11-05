@@ -4,7 +4,7 @@
         COCOS2D_DEBUG:2, //0 to turn debug off, 1 for basic debug, and 2 for full debug
         box2d:false,
         showFPS:false,
-        frameRate:60,
+        frameRate:30,
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'cocos2d/',
         appFiles:['js/MemeInvasion.js','js/EventControl.js','js/Poder.js','js/Inimigo.js', 'js/Control.js', 'js/Placar.js']

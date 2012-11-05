@@ -26,7 +26,10 @@ var MemeInvasion = cc.LayerColor.extend({
 		_inimigoScene.setConteiner(this);
 		_inimigoScene.init();
      
-        
+        this._placar = cc.LabelTTF.create("0", "Helvetica", 32);
+        this._placar.setColor({r:0,g:0,b:0});
+        this._placar.setPosition(cc.p(300,580));
+        this.addChild(this._placar);
 
         //initWithString([label1, cc.TextureCache.getInstance(),200, 70,' ']);
 
@@ -39,9 +42,9 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
     },
     update:function(dt){
-        
-
-        //this._placar.update();
+        var label = "";
+        label = "Pontos:" + this._control.getPoints() + "         Fase:"+ this._control.getFaseNumber();
+        this._placar.setString(label);
     },
     onTouchesEnded:function (pTouch,pEvent){
         this._eventControl.handleTouch(pTouch[0].getLocation());
@@ -80,10 +83,10 @@ MemeInvasionScene = cc.Scene.extend({
         layer.init(this._control);
         this.addChild(layer);
 
-
+        /*
         this._placar = new Placar(this._control);
         this._placar.position = new cc.Point(10, 200);
-        this.addChild(this._placar);
+        this.addChild(this._placar);*/
 
     }
 });

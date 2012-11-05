@@ -7,7 +7,7 @@ var Inimigo = cc.Sprite.extend({
         this.initWithFile("./images/troll_face_completo.jpg");
 		
         this.schedule(function() {
-                var position = new cc.Point(this.getPosition().x - 5, this.getPosition().y);
+                var position = new cc.Point(this.getPosition().x - 2, this.getPosition().y);
                 this.setPosition(this.validatePosition(position));
                 this.process();
             });
