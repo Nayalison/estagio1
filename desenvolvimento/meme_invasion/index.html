@@ -1,30 +1,61 @@
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>Meme Invasion</title>
+		<link href="./css/bootstrap.css" rel="stylesheet">
+		<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+		<script src="js/cocos2d.js"></script>
 		<style type="text/css">
-			body {
-				margin:0;
-				padding:0;
-				background:#ccc;
-				text-align:center; /* hack para o IE */
-			}
-			#tudo {
-				width: 800px;
-				margin:0 auto;         
-				text-align:left; /* "remédio" para o hack do IE */ 
-			}
-			#conteudo {
-				padding: 5px;
-				background-color: #eee;
-			}
+	      	body {
+	        	padding-top: 60px;
+	        	padding-bottom: 40px;
+	      	}
+	      	#gameCanvas {
+				background-color: #AD1F1F;
+	      	}
+	      	.hero-unit{
+				padding: 60px 135px 60px 135px;
+	      	}
 		</style>
 	</head>
-	<body id="tudo">
-		<div id="conteudo">
-			<canvas id="gameCanvas" width="800" height="600">
-			  Your browser does not support the canvas tag
-			</canvas>
+
+	<body style="padding:0; margin: 0;">
+	    <div class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="navbar-inner">
+	        <div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+	         	 <a class="brand" href="#">Nayalison Pinheiro</a>
+	        </div>
+	      </div>
+	    </div>
+	    
+	    <div class="container">
+		    <div class="hero-unit">
+			    <h2>Meme Invasion</h2>
+			    <!--Editar -->
+				<p> Terriveis chuvas de meteoritos podem atingir a Terra e so voce pode impedir esse desastre.</br>
+				Destrua os meteoritos e salve o planeta! </p>
+
+				<div id="gameContainer">
+					<canvas id="gameCanvas" width="800" height="600">
+						Seu browser não suporta canvas
+					</canvas>
+				</div>
+		    </div>
+
+		    <hr>
+		    <footer>
+		    	<p>Todos os direitos reservados.</p>
+		    </footer>
+
+	    </div>
+
+		<div style="margin: 30px; font-size: 0">
+		    
 		</div>
 	</body>
 </html>
-<script src="js/cocos2d.js"></script>

@@ -71,7 +71,7 @@ var Inimigo = cc.Sprite.extend({
 var InimigoScene = (function(){
 	var conteiner = null;
 	var limiteInferior = 100;
-	var limiteSuperior = 1000;
+	var limiteSuperior = 5000;
 	var control = null;
 	
 	this.setConteiner = function(conteiner) {
