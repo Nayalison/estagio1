@@ -7,8 +7,8 @@
         frameRate:30,
         tag:'gameCanvas', //the dom element to run cocos2d on
         engineDir:'cocos2d/',
-        appFiles:['js/MemeInvasion.js','js/EventControl.js','js/Poder.js','js/Inimigo.js', 'js/Control.js', 'js/Placar.js', 
-                  'js/MenuLayer.js', 'js/VitoriaScene.js']
+        appFiles:['js/MemeInvasion.js','js/Personagem.js','js/Poder.js','js/Inimigo.js', 'js/Control.js', 'js/Placar.js', 
+                  'js/MenuLayer.js', 'js/VitoriaScene.js', 'js/DerrotaScene.js']
     };
     window.addEventListener('DOMContentLoaded', function () {
         //first load engine file if specified

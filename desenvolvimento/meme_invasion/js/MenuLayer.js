@@ -1,14 +1,9 @@
 var MenuLayer = cc.Layer.extend({   
     ctor:function(){
-
-	this.setTouchEnabled(true)
-    	
+	   this.setTouchEnabled( true );   	
     	var label = cc.LabelTTF.create( "Jogar", "Helvetica", 64 );
-
-        var menuitem = cc.MenuItemLabel.create(label, this, function(){
-
+        var menuitem = cc.MenuItemLabel.create( label, this, function() {
                 cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new MemeInvasionScene()));
-                
         });
 
         var menu = cc.Menu.create(menuitem);
@@ -20,13 +15,9 @@ var MenuLayer = cc.Layer.extend({
 
 var MenuScene = cc.Scene.extend({
 	onEnter:function(){
-		
 		this._super();
-
 		var layer = new MenuLayer();
-
 		layer.init();
-
 		this.addChild(layer);
 	}
 })

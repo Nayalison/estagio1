@@ -4,7 +4,8 @@ var Inimigo = cc.Sprite.extend({
     ctor:function(conteiner,control) {
 		this._conteiner = conteiner;
 		this._control = control;
-        this.initWithFile("./images/troll_face_completo.gif");
+        //this.initWithFile("./images/troll_face_completo.gif");
+        this.initWithFile("./images/editar/forever_20alone_20dancing_large.gif");
 		
         this.schedule(function() {
                 var position = new cc.Point(this.getPosition().x - 2, this.getPosition().y);
@@ -18,11 +19,24 @@ var Inimigo = cc.Sprite.extend({
     pontuar:function() {
     	this._control.marcarPonto();
     },
+
+    perderVida:function() {
+    	this._control.perderVida();
+    },
+
     process:function() {
 			if(!this.isAlive()) {
 				this._conteiner.removeChild(this);
 				this.cleanup();
+				this.explodir(this);
+				delete this;
 			}
+	},
+
+	explodir:function(inimigo) {
+		var backgroundSprite = cc.Sprite.create("./images/Explosao.gif");
+		backgroundSprite.setPosition(inimigo.getPosition());
+		this._conteiner.addChild(backgroundSprite);
 	},
 	
     validatePosition:function(position) {
@@ -37,6 +51,7 @@ var Inimigo = cc.Sprite.extend({
 		for(var i = 0; i < this._conteiner.getChildren().length; i++) {
 		  child = this._conteiner.getChildren()[i];
 		  if(this.getPosition().x <= -70) {
+		  		this.perderVida();
 				return false;
 			}
 			
@@ -44,11 +59,14 @@ var Inimigo = cc.Sprite.extend({
 			if(this.testCollisionX(child.getPosition(), this.getPosition()) && 
 				this.testCollisionY(child.getPosition(), this.getPosition())) {
 				this._conteiner.removeChild(child);
+				delete child;
 				this.pontuar();
 			  return false; 
 			}
-		  }
-		  
+		  } /*else if(child instanceof cc.Sprite && !(child instanceof Inimigo) && !(child instanceof EventControl)) {
+		  	this._conteiner.removeChild(child);
+		  }*/
+  
 		}
 		return true;
     },

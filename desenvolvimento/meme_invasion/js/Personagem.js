@@ -1,4 +1,4 @@
-var EventControl = cc.Sprite.extend({
+var Personagem = cc.Sprite.extend({
     _currentPosition:0,
 	// _size : cc.Director.getInstance().getWinSize(),
 	_size : 600,
