@@ -3,11 +3,11 @@ var EventControl = cc.Sprite.extend({
 	// _size : cc.Director.getInstance().getWinSize(),
 	_size : 600,
     ctor:function() {
-        this.initWithFile("./images/me_gusta_completo.jpg");
+        this.initWithFile("./images/inimigo2.gif");
     },
     
     update:function(dt) {
-		this.setPosition(new cc.Point(30, this._currentPosition));
+		this.setPosition(new cc.Point(50, this._currentPosition));
     },
     
     handleKey:function(e) {

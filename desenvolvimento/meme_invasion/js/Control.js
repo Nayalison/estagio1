@@ -1,5 +1,6 @@
 var Control =  function(){
 	this.FATOR_PONTOS = 10;
+	this.MAX_FASES = 2;
 	this.NIVEIS_DIFICULDADES = [1, 1.5, 2, 2.5];
 	this.fase_number = 1;
 	this.points = 0;
@@ -19,14 +20,22 @@ var Control =  function(){
 	
 	this.getPoints = function() {
 		return this.points;
-	}
+	};
 	
 	this.getFaseNumber = function() {
 		return this.fase_number;
-	}
+	};
 	
 	this.getNumeroInimigosFase = function() {
 		return this.fase_number;
-	}
+	};
+
+	this.isVitoria = function() {
+		if( this.MAX_FASES <= this.fase_number ) {
+			return true;
+		} else {
+			return false;
+		}
+	};
 	
 };

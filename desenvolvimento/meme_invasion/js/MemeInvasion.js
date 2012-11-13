@@ -45,6 +45,10 @@ var MemeInvasion = cc.LayerColor.extend({
         var label = "";
         label = "Pontos:" + this._control.getPoints() + "         Fase:"+ this._control.getFaseNumber();
         this._placar.setString(label);
+
+        if( this._control.isVitoria() ) {
+            cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new VitoriaScene()));
+        }
     },
     onTouchesEnded:function (pTouch,pEvent){
         this._eventControl.handleTouch(pTouch[0].getLocation());
@@ -59,6 +63,9 @@ var MemeInvasion = cc.LayerColor.extend({
     onKeyDown:function(e){
        this.handleKey(e);
        this._eventControl.handleKey(e);
+        if(e === cc.KEY.p) {
+            this.pause();
+        }
     },
     handleKey:function(e) {
        if(e === cc.KEY.enter ) {
@@ -67,9 +74,17 @@ var MemeInvasion = cc.LayerColor.extend({
              poder.setPosition(p);
             this.addChild(poder);
         } 
+
     },
     recarregar:function() {
         this._possuiPoder = true;
+    },
+    pause:function() {
+        if( cc.Director.getInstance().isPaused() ){
+            cc.Director.getInstance().resume();
+        } else {
+            cc.Director.getInstance().pause();
+        }
     }
 });
 
@@ -82,11 +97,5 @@ MemeInvasionScene = cc.Scene.extend({
         var layer = new MemeInvasion();
         layer.init(this._control);
         this.addChild(layer);
-
-        /*
-        this._placar = new Placar(this._control);
-        this._placar.position = new cc.Point(10, 200);
-        this.addChild(this._placar);*/
-
     }
 });

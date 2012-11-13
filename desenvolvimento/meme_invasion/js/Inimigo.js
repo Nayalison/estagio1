@@ -4,7 +4,7 @@ var Inimigo = cc.Sprite.extend({
     ctor:function(conteiner,control) {
 		this._conteiner = conteiner;
 		this._control = control;
-        this.initWithFile("./images/troll_face_completo.jpg");
+        this.initWithFile("./images/troll_face_completo.gif");
 		
         this.schedule(function() {
                 var position = new cc.Point(this.getPosition().x - 2, this.getPosition().y);
