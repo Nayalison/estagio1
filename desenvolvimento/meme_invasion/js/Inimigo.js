@@ -1,11 +1,18 @@
+var countTipoInimigo = 0;
 var Inimigo = cc.Sprite.extend({
     _conteiner : null,
 	_control:null,
+	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif","./images/memes/meme_troll_face.gif",
+				"./images/memes/meme_y_u.gif"],
     ctor:function(conteiner,control) {
 		this._conteiner = conteiner;
 		this._control = control;
         //this.initWithFile("./images/troll_face_completo.gif");
-        this.initWithFile("./images/editar/forever_20alone_20dancing_large.gif");
+        this.initWithFile(this._memes[countTipoInimigo]);
+        countTipoInimigo++;
+        if(countTipoInimigo > 4) {
+        	countTipoInimigo = 0;
+        }
 		
         this.schedule(function() {
                 var position = new cc.Point(this.getPosition().x - 2, this.getPosition().y);

@@ -1,6 +1,6 @@
 var Control =  function(){
 	this.FATOR_PONTOS = 10;
-	this.MAX_FASES = 5;
+	this.MAX_FASES = 2;
 	this.NIVEIS_DIFICULDADES = [1, 1.5, 2, 2.5];
 	this.fase_number = 1;
 	this.vidas = 10;
