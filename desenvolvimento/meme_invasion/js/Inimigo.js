@@ -41,9 +41,9 @@ var Inimigo = cc.Sprite.extend({
 	},
 
 	explodir:function(inimigo) {
-		var backgroundSprite = cc.Sprite.create("./images/Explosao.gif");
-		backgroundSprite.setPosition(inimigo.getPosition());
-		this._conteiner.addChild(backgroundSprite);
+		var explosao = new Explosao(this._conteiner);
+		explosao.setPosition(inimigo.getPosition());
+		this._conteiner.addChild(explosao);
 	},
 	
     validatePosition:function(position) {
@@ -70,10 +70,7 @@ var Inimigo = cc.Sprite.extend({
 				this.pontuar();
 			  return false; 
 			}
-		  } /*else if(child instanceof cc.Sprite && !(child instanceof Inimigo) && !(child instanceof EventControl)) {
-		  	this._conteiner.removeChild(child);
-		  }*/
-  
+		  } 
 		}
 		return true;
     },
