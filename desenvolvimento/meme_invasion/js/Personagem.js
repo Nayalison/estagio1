@@ -1,9 +1,14 @@
 var Personagem = cc.Sprite.extend({
     _currentPosition:0,
-	// _size : cc.Director.getInstance().getWinSize(),
-	_size : 600,
+	_limiteInferior:0,
+    _limiteSuperior:0,
+    _size:null,
+    _sizePlacar:32,
     ctor:function() {
         this.initWithFile("./images/inimigo2.gif");
+        this._size = cc.Director.getInstance().getWinSize();
+        this._limiteInferior = this.getTextureRect().size.height/2;
+        this._limiteSuperior = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
     },
     
     update:function(dt) {
@@ -26,8 +31,9 @@ var Personagem = cc.Sprite.extend({
     },
 	
 	validatePosition:function() {
-		if(this._currentPosition < 0) this._currentPosition = 0;
-        if(this._currentPosition > 600) this._currentPosition = 600;
+        this.getTextureRect();
+		if(this._currentPosition < this._limiteInferior) this._currentPosition = this._limiteInferior;
+        if(this._currentPosition > this._limiteSuperior) this._currentPosition = this._limiteSuperior;
 	},
 	
     handleTouchMove:function(touchLocation) {

@@ -1,14 +1,18 @@
 var countTipoInimigo = 0;
 var Inimigo = cc.Sprite.extend({
+    _size:null,
     _conteiner : null,
 	_control:null,
+	_limiteX:0,
 	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif","./images/memes/meme_troll_face.gif",
 				"./images/memes/meme_y_u.gif"],
     ctor:function(conteiner,control) {
+		this.initWithFile(this._memes[countTipoInimigo]);
 		this._conteiner = conteiner;
 		this._control = control;
-        //this.initWithFile("./images/troll_face_completo.gif");
-        this.initWithFile(this._memes[countTipoInimigo]);
+        this._size = cc.Director.getInstance().getWinSize();
+        this._limiteX = -1 *  this.getTextureRect().size.width;
+        
         countTipoInimigo++;
         if(countTipoInimigo > 4) {
         	countTipoInimigo = 0;
@@ -47,8 +51,8 @@ var Inimigo = cc.Sprite.extend({
 	},
 	
     validatePosition:function(position) {
-        if(position.x  < -70) {
-			 position = new cc.Point(-70, position.y);
+        if(position.x  < this._limiteX) {
+			 position = new cc.Point(this._limiteX, position.y);
 		 }
 		 return position;
     },
@@ -57,12 +61,13 @@ var Inimigo = cc.Sprite.extend({
 		var child = null;
 		for(var i = 0; i < this._conteiner.getChildren().length; i++) {
 		  child = this._conteiner.getChildren()[i];
-		  if(this.getPosition().x <= -70) {
+		  if(this.getPosition().x <= this._limiteX) {
 		  		this.perderVida();
 				return false;
 			}
 			
 		  if(child instanceof Poder) {
+		  	//CollisionControl.getInstance().testCollision(child, this);
 			if(this.testCollisionX(child.getPosition(), this.getPosition()) && 
 				this.testCollisionY(child.getPosition(), this.getPosition())) {
 				this._conteiner.removeChild(child);

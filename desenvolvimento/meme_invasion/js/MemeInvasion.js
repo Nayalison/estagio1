@@ -8,6 +8,7 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
         this.initWithColor(new cc.Color4B(100,100,100,100));
         var size = cc.Director.getInstance().getWinSize();
+         cc.AudioEngine.getInstance().setEffectsVolume(0.5);
 		
 		this._control = control;
 		
@@ -32,6 +33,7 @@ var MemeInvasion = cc.LayerColor.extend({
         this.addChild(this._placar);
 
         this.schedule(this.update);
+        SoundControl.getInstance().playBackgroundMusic();
 
         return true;
     },
@@ -61,12 +63,18 @@ var MemeInvasion = cc.LayerColor.extend({
     onKeyUp:function(e){
         this.handleKey(e);
 		this._personagem.handleKey(e);
+        if(e === cc.KEY.enter) {
+            SoundControl.getInstance().pauseGunSound();
+        }
     },
     onKeyDown:function(e){
        this.handleKey(e);
        this._personagem.handleKey(e);
         if(e === cc.KEY.p) {
             this.pause();
+        }
+        if(e === cc.KEY.enter) {
+           SoundControl.getInstance().playGunSound();
         }
     },
     handleKey:function(e) {

@@ -15,9 +15,11 @@ var cocos2dApp = cc.Application.extend({
             cc.AppController.shareAppController().didFinishLaunchingWithOptions();
         };
 
+        cc.AudioEngine.getInstance().init("mp3,ogg,wav");
         cc.Loader.shareLoader().preload([
+            {type:"effect",src:"./Resources/tiro"},
+            {type:"bgm",src:"./Resources/background"}
         ]);
-
     },
     
     applicationDidFinishLaunching:function () {
@@ -31,5 +33,3 @@ var cocos2dApp = cc.Application.extend({
 });
 
 var memeInvasion = new cocos2dApp(MenuScene);
-
-  

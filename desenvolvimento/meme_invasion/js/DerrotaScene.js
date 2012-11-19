@@ -16,6 +16,7 @@ var MenuVoltar = cc.Layer.extend({
 var DerrotaScene = cc.Scene.extend({
 	onEnter:function(){
 		this._super();
+		SoundControl.getInstance().stopBackgroundMusic();
 		var lazyLayer = new cc.Layer.create();
 		var size = cc.Director.getInstance().getWinSize();
 		this.addChild(lazyLayer);

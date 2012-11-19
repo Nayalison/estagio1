@@ -16,6 +16,7 @@ var MenuVoltar = cc.Layer.extend({
 var VitoriaScene = cc.Scene.extend({
 	onEnter:function(){
 		this._super();
+		SoundControl.getInstance().stopBackgroundMusic();
 		var size = cc.Director.getInstance().getWinSize();
 		var lazyLayer = new cc.Layer.create();
 		this.addChild(lazyLayer);
