@@ -4,8 +4,8 @@ var Inimigo = cc.Sprite.extend({
     _conteiner : null,
 	_control:null,
 	_limiteX:0,
-	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif","./images/memes/meme_troll_face.gif",
-				"./images/memes/meme_y_u.gif"],
+	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif",
+			"./images/memes/meme_troll_face.gif", "./images/memes/meme_y_u.gif"],
     ctor:function(conteiner,control) {
 		this.initWithFile(this._memes[countTipoInimigo]);
 		this._conteiner = conteiner;
@@ -19,7 +19,7 @@ var Inimigo = cc.Sprite.extend({
         }
 		
         this.schedule(function() {
-                var position = new cc.Point(this.getPosition().x - 2, this.getPosition().y);
+                var position = new cc.Point(this.getPosition().x - this._control.getVelocidadeInimigo(), this.getPosition().y);
                 this.setPosition(this.validatePosition(position));
                 this.process();
             });
@@ -67,9 +67,7 @@ var Inimigo = cc.Sprite.extend({
 			}
 			
 		  if(child instanceof Poder) {
-		  	//CollisionControl.getInstance().testCollision(child, this);
-			if(this.testCollisionX(child.getPosition(), this.getPosition()) && 
-				this.testCollisionY(child.getPosition(), this.getPosition())) {
+			if(	CollisionControl.getInstance().testCollision(child,this)) {
 				this._conteiner.removeChild(child);
 				delete child;
 				this.pontuar();
@@ -79,20 +77,6 @@ var Inimigo = cc.Sprite.extend({
 		}
 		return true;
     },
-	
-	testCollisionX:function(position, inimigoPosition) {
-		if(inimigoPosition.x-31 <=position.x-10 && position.x+10 <=inimigoPosition.x+31) {
-			return true;
-		}
-		return false;
-	},
-	
-	testCollisionY:function(position, inimigoPosition) {
-		if(inimigoPosition.y-62 <=position.y-10 && position.y+10 <=inimigoPosition.y+62) {
-			return true;
-		}
-		return false;
-	}
 });
 
 var InimigoScene = (function(){

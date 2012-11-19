@@ -18,6 +18,7 @@ var VitoriaScene = cc.Scene.extend({
 		this._super();
 		SoundControl.getInstance().stopBackgroundMusic();
 		var size = cc.Director.getInstance().getWinSize();
+		
 		var lazyLayer = new cc.Layer.create();
 		this.addChild(lazyLayer);
 		var backgroundSprite = cc.Sprite.create("./images/meme_fred_mercury.gif");

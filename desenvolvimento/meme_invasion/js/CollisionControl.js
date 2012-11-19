@@ -1,23 +1,28 @@
 var CollisionControl =  function() {
 	
-	/*var testCollisionX = function(sprite1, sprite2) {
-        if(inimigoPosition.x-31 <=position.x-10 && position.x+10 <=inimigoPosition.x+31) {
-            return true;
+	var testCollisionX = function(sprite1, sprite2) {
+        var rec1 = sprite1.getTextureRect();
+        var rec2 = sprite2.getTextureRect();
+        if( (sprite1.getPosition().x + rec1.size.width/2) < (sprite2.getPosition().x - rec2.size.width/2) || 
+            (sprite1.getPosition().x - rec1.size.width/2) > (sprite2.getPosition().x + rec2.size.width/2) ) {
+            return false;
         }
-        return false;
+        return true;
     };
     
     var testCollisionY = function(sprite1, sprite2) {
-        if(inimigoPosition.y-62 <=position.y-10 && position.y+10 <=inimigoPosition.y+62) {
-            return true;
+        var rec1 = sprite1.getTextureRect();
+        var rec2 = sprite2.getTextureRect();
+        if( (sprite1.getPosition().y + rec1.size.height/2) < (sprite2.getPosition().y - rec2.size.height/2) || 
+            (sprite1.getPosition().y - rec1.size.height/2) > (sprite2.getPosition().y + rec2.size.height/2) ) {
+            return false;
         }
-        return false;
-    };*/
+        return true;
+    };
 
     this.testCollision = function(sprite1, sprite2) {
-        var rec =  cc.Rect.CCRectIntersectsRect(sprite1.getTextureRect(), sprite2.getTextureRect());
-        if(rec != null && rec.size !=null) {
-            console.log(rec.size.width);    
+        if(testCollisionX(sprite1,sprite2) && testCollisionY(sprite1,sprite2)) {
+            return true;
         }
         return false;
     };
