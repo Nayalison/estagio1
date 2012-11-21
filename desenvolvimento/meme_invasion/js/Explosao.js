@@ -1,8 +1,6 @@
 var Explosao = cc.Sprite.extend({
-    _conteiner : null,
-    _timeToLive: 10, 
-    ctor:function(conteiner) {
-	this._conteiner = conteiner;
+    _timeToLive: 15, 
+    ctor:function() {
         this.initWithFile("./images/Explosao.gif");
 		
         this.schedule(function() {
@@ -25,7 +23,6 @@ var Explosao = cc.Sprite.extend({
         }
     },
     destroy:function() {
-        this._conteiner.removeChild(this);
-        delete this;
+        ConteinerControl.getInstance().removeChild(this);
     }
 });

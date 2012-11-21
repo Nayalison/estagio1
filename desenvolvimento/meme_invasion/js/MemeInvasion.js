@@ -1,16 +1,19 @@
 var MemeInvasion = cc.LayerColor.extend({
 	 _personagem:null,
 	 _inimigoScene:null,
-	 _control:null,
+	 _gameControl:null,
      _placar:null,
      _possuiPoder: true,
-    init:function(control){
+    init:function(){
         this._super();
+        this._gameControl = GameControl.getInstance();
         this.initWithColor(new cc.Color4B(100,100,100,100));
+       
+
         var size = cc.Director.getInstance().getWinSize();
-         cc.AudioEngine.getInstance().setEffectsVolume(0.5);
+        cc.AudioEngine.getInstance().setEffectsVolume(0.5);
 		
-		this._control = control;
+		
 		
         this._personagem = new Personagem();
         this.setTouchEnabled(true);
@@ -18,13 +21,13 @@ var MemeInvasion = cc.LayerColor.extend({
 
         this.setPosition(new cc.Point(0,0));
 
-        this.addChild(this._personagem);
+        this.addChild(this._personagem,1,0);
         this._personagem.setPosition(new cc.Point(0,size.height/2));
         this._personagem.scheduleUpdate();
 		
 		_inimigoScene = new InimigoScene();
-		_inimigoScene.setControl(this._control);
-		_inimigoScene.setConteiner(this);
+//		_inimigoScene.setControl(this._gameControl);
+//		_inimigoScene.setConteiner(this);
 		_inimigoScene.init();
      
         this._placar = cc.LabelTTF.create("0", "Helvetica", 32);
@@ -33,7 +36,9 @@ var MemeInvasion = cc.LayerColor.extend({
         this.addChild(this._placar);
 
         this.schedule(this.update);
+       
         SoundControl.getInstance().playBackgroundMusic();
+
 
         return true;
     },
@@ -41,16 +46,17 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
     },
     update:function(dt){
+        ConteinerControl.getInstance().testCollision();
         var label = "";
-        label = "Pontos:" + this._control.getPoints() + "         Fase:"+ this._control.getFaseNumber()+
-                "        Vidas: "+this._control.getVidas();
+        label = "Pontos:" + this._gameControl.getPoints() + "         Fase:"+ this._gameControl.getFaseNumber()+
+                "        Vidas: "+this._gameControl.getVidas();
         this._placar.setString(label);
 
-        if( this._control.isVitoria() ) {
+        if( this._gameControl.isVitoria() ) {
             cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new VitoriaScene()));
         }
 
-        if( this._control.isDerrota() ) {
+        if( this._gameControl.isDerrota() ) {
             cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new DerrotaScene()));
         }
     },
@@ -60,6 +66,14 @@ var MemeInvasion = cc.LayerColor.extend({
     onTouchesMoved:function(pTouch,pEvent){
         this._personagem.handleTouchMove(pTouch[0].getLocation());
     },
+
+    onTouchBegan:function(pTouch,pEvent){
+        this._personagem.handleTouch(pTouch[0].getLocation(), pEvent);
+    },
+    onTouchEnded:function(pTouch,pEvent){
+        this._personagem.handleTouch(pTouch[0].getLocation(), pEvent);
+    },
+
     onKeyUp:function(e){
         this.handleKey(e);
 		this._personagem.handleKey(e);
@@ -80,8 +94,8 @@ var MemeInvasion = cc.LayerColor.extend({
     handleKey:function(e) {
        if(e === cc.KEY.enter ) {
             var p = this._personagem.getPosition();
-            var poder = new Poder(this);
-             poder.setPosition(p);
+            var poder = new Poder();
+            poder.setPosition(cc.p(p.x + this._personagem.getTextureRect().size.width/2, p.y));
             this.addChild(poder);
         } 
 
@@ -99,13 +113,12 @@ var MemeInvasion = cc.LayerColor.extend({
 });
 
 MemeInvasionScene = cc.Scene.extend({
-    _control:null,
     _placar:null,
     onEnter:function(){
         this._super();
-        this._control = new Control();
         var layer = new MemeInvasion();
-        layer.init(this._control);
+        ConteinerControl.getInstance().setConteiner(layer);
+        layer.init();
         this.addChild(layer);
     }
 });

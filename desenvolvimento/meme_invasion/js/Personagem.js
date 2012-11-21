@@ -14,6 +14,10 @@ var Personagem = cc.Sprite.extend({
     update:function(dt) {
 		this.setPosition(new cc.Point(50, this._currentPosition));
     },
+
+    afterCollision:function() {
+        GameControl.getCurrentInstance().gameOver();
+    },
     
     handleKey:function(e) {
         if(e === cc.KEY.up) {
@@ -28,6 +32,11 @@ var Personagem = cc.Sprite.extend({
     handleTouch:function(touchLocation) {	
 		this._currentPosition = touchLocation.y;
 		this.validatePosition();
+    },
+
+    handleTouch:function(touchLocation,touchEvent) {   
+        this._currentPosition = touchLocation.y;
+        this.validatePosition();
     },
 	
 	validatePosition:function() {

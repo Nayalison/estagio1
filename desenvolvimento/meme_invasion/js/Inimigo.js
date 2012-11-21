@@ -1,15 +1,14 @@
 var countTipoInimigo = 0;
 var Inimigo = cc.Sprite.extend({
     _size:null,
-    _conteiner : null,
-	_control:null,
+    //_conteiner : null,
+	//_gameControl:null,
 	_limiteX:0,
 	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif",
 			"./images/memes/meme_troll_face.gif", "./images/memes/meme_y_u.gif"],
-    ctor:function(conteiner,control) {
+    ctor:function() {
 		this.initWithFile(this._memes[countTipoInimigo]);
-		this._conteiner = conteiner;
-		this._control = control;
+		//this._gameControl = gameControl;
         this._size = cc.Director.getInstance().getWinSize();
         this._limiteX = -1 *  this.getTextureRect().size.width;
         
@@ -19,20 +18,20 @@ var Inimigo = cc.Sprite.extend({
         }
 		
         this.schedule(function() {
-                var position = new cc.Point(this.getPosition().x - this._control.getVelocidadeInimigo(), this.getPosition().y);
+                var position = new cc.Point(this.getPosition().x - GameControl.getCurrentInstance().getVelocidadeInimigo(), this.getPosition().y);
                 this.setPosition(this.validatePosition(position));
-                this.process();
+                //this.process();
             });
         
         return true;
     },
 
-    pontuar:function() {
-    	this._control.marcarPonto();
+   /* pontuar:function() {
+    	this._gameControl.marcarPonto();
     },
 
     perderVida:function() {
-    	this._control.perderVida();
+    	this._gameControl.perderVida();
     },
 
     process:function() {
@@ -42,12 +41,17 @@ var Inimigo = cc.Sprite.extend({
 				this.explodir(this);
 				delete this;
 			}
+	},*/
+
+	afterCollision:function() {
+		this.explodir();
 	},
 
-	explodir:function(inimigo) {
-		var explosao = new Explosao(this._conteiner);
-		explosao.setPosition(inimigo.getPosition());
-		this._conteiner.addChild(explosao);
+	explodir:function() {
+		var explosao = new Explosao();
+		explosao.setPosition(this.getPosition());
+		ConteinerControl.getInstance().addChild(explosao)
+		SoundControl.getInstance().playExplosionSound();
 	},
 	
     validatePosition:function(position) {
@@ -55,7 +59,7 @@ var Inimigo = cc.Sprite.extend({
 			 position = new cc.Point(this._limiteX, position.y);
 		 }
 		 return position;
-    },
+    }/*,
     
     isAlive:function() {
 		var child = null;
@@ -76,43 +80,27 @@ var Inimigo = cc.Sprite.extend({
 		  } 
 		}
 		return true;
-    },
+    },*/
 });
 
 var InimigoScene = (function(){
-	var conteiner = null;
 	var limiteInferior = 100;
-	var limiteSuperior = 5000;
-	var control = null;
-	
-	this.setConteiner = function(conteiner) {
-		this.conteiner = conteiner;
-	};
-	
-	this.setControl = function(control) {
-		this.control = control;
-	}
+	var limiteSuperior = 5000;	
 	
 	//TODO refatorar
 	this.init = function() {
-		var teste = this.conteiner;
-		var control = this.control;
-		//var controle = this.control;
+		var control = GameControl.getCurrentInstance();
 		setInterval(function() {
 			var count = gerarNumero(1,control.getNumeroInimigosFase);
 				for(i=1; i<= control.getNumeroInimigosFase(); i++) {
-					var inimigo = criarInimigo(teste,control);
-					teste.addChild(inimigo);
+					var inimigo = criarInimigo();
+					ConteinerControl.getInstance().addChild(inimigo,0,0);
 				}
 			}, gerarNumero(limiteInferior,limiteSuperior));		
 	};
-
-	var getConteiner = function() {
-		return this.conteiner;
-	};
 	
-	var criarInimigo = function(conteiner, control) {
-		inimigo = new Inimigo(conteiner, control);
+	var criarInimigo = function() {
+		inimigo = new Inimigo();
 		inimigo.setPosition(new cc.Point(800, gerarNumero(63, 500)));
 		return inimigo;
 	};

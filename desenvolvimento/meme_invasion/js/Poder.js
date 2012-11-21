@@ -1,21 +1,22 @@
 var Poder = cc.Sprite.extend({
-    _conteiner : null,
-    ctor:function(conteiner) {
-	this._conteiner = conteiner;
-        this.initWithFile("./images/bola_fogo_small.gif");
-		
+    _size:null,
+    ctor:function() {
+		this.initWithFile("./images/bala.gif");
+         this._size = cc.Director.getInstance().getWinSize();
         this.schedule(function() {
                 var position = new cc.Point(this.getPosition().x + 10, this.getPosition().y);
-                this.setPosition(this.validatePosition(position));
+                this.setPosition(position);
+                this.process();
             });
         
         return true;
     },
-    validatePosition:function(position) {
-        if(position.x  > 830) {
-			 this._conteiner.removeChild(this);
-             delete this;
+    process:function() {
+        if(this.getPosition().x  > this._size.weight + 2 * this.getTextureRect().size.width ) {
+			 ConteinerControl.getInstance.removeChild(this);
 		 }
-		 return position;
+    },
+    afterCollision:function() {
+        GameControl.getCurrentInstance().marcarPonto();
     }
 });

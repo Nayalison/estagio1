@@ -7,14 +7,21 @@ var SoundControl =  function(){
 	
 	this.playGunSound = function(){
     	cc.AudioEngine.getInstance().playEffect("./Resources/tiro", true);
+         cc.AudioEngine.getInstance().setEffectsVolume(1)
     };
 
     this.pauseGunSound = function(){
     	cc.AudioEngine.getInstance().pauseEffect("./Resources/tiro");
     };
 
+    this.playExplosionSound = function(){
+        cc.AudioEngine.getInstance().playEffect("./Resources/bomb", false);
+         cc.AudioEngine.getInstance().setEffectsVolume(1)
+    };
+
     this.playBackgroundMusic = function(){
         cc.AudioEngine.getInstance().playBackgroundMusic("./Resources/background",true);
+        cc.AudioEngine.getInstance().setBackgroundMusicVolume(0.7)
     };
 
     this.stopBackgroundMusic = function(){
