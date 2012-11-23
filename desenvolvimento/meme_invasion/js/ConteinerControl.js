@@ -1,3 +1,4 @@
+var count = 0;
 var ConteinerControl =  function() {
     this.self = this;
 	this._conteiner = null;
@@ -16,10 +17,11 @@ var ConteinerControl =  function() {
         delete child;
     };
 
-    this.testComponentCollision = function( component, componentTypeCollision) {
+    this.testComponentCollision = function( component, componentTypeCollision, lista) {
         var child = null;
-        for(var i = 0; i < this._conteiner.getChildren().length; i++) {
-          child = this._conteiner.getChildren()[i];
+        
+        for(var i = 0; i < lista.length; i++) {
+          child = lista[i];
           if(child instanceof componentTypeCollision) {
             if( CollisionControl.getInstance().testCollision(child,component)) {
                 child.afterCollision();
@@ -33,19 +35,24 @@ var ConteinerControl =  function() {
 
     this.testCollision = function() {
         var child = null;
+        var lista = this._conteiner.getChildren();
         if(this._conteiner == null) {
             return;
         }
 
-        for(var i = 0; i < this._conteiner.getChildren().length; i++) {
-          child = this._conteiner.getChildren()[i];
+        for(var i = 0; i < lista.length; i++) {
+            if(count != lista.length) {
+                count = lista.length;
+                console.log("List size: "+lista.length);
+            }
+          child = lista[i];
           
           if(child instanceof Poder) {
-            this.testComponentCollision(child, Inimigo);
+            this.testComponentCollision(child, Inimigo, lista);
           }
 
           if(child instanceof Personagem) {
-            this.testComponentCollision(child, Inimigo);
+            this.testComponentCollision(child, Inimigo, lista);
           } 
         }
     }

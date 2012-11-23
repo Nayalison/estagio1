@@ -1,5 +1,5 @@
 var Explosao = cc.Sprite.extend({
-    _timeToLive: 15, 
+    _timeToLive: 60, 
     ctor:function() {
         this.initWithFile("./images/Explosao.gif");
 		

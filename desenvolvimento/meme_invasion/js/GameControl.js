@@ -1,6 +1,6 @@
 var GameControl =  function() {
 	this.FATOR_PONTOS = 30;
-	this.MAX_FASES = 2;
+	this.MAX_FASES = 6;
 	this.NIVEIS_DIFICULDADES = [1, 2, 4, 6, 8];
 	this.fase_number = 1;
 	this.vidas = 10;
@@ -58,7 +58,7 @@ var GameControl =  function() {
 	};
 
 	this.isDerrota = function() {
-		if(this.vidas == 0) {
+		if(this.vidas <= 0) {
 			return true;
 		} else {
 			return false;

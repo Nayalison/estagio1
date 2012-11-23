@@ -12,8 +12,8 @@ var Poder = cc.Sprite.extend({
         return true;
     },
     process:function() {
-        if(this.getPosition().x  > this._size.weight + 2 * this.getTextureRect().size.width ) {
-			 ConteinerControl.getInstance.removeChild(this);
+        if(this.getPosition().x  > this._size.width + 2 * this.getTextureRect().size.width ) {
+			 ConteinerControl.getInstance().removeChild(this);
 		 }
     },
     afterCollision:function() {
