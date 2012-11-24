@@ -8,12 +8,9 @@ var MemeInvasion = cc.LayerColor.extend({
         this._super();
         this._gameControl = GameControl.getInstance();
         this.initWithColor(new cc.Color4B(100,100,100,100));
-       
 
         var size = cc.Director.getInstance().getWinSize();
         cc.AudioEngine.getInstance().setEffectsVolume(0.5);
-		
-		
 		
         this._personagem = new Personagem();
         this.setTouchEnabled(true);
@@ -26,8 +23,6 @@ var MemeInvasion = cc.LayerColor.extend({
         this._personagem.scheduleUpdate();
 		
 		_inimigoScene = new InimigoScene();
-//		_inimigoScene.setControl(this._gameControl);
-//		_inimigoScene.setConteiner(this);
 		_inimigoScene.init();
      
         this._placar = cc.LabelTTF.create("0", "Helvetica", 32);
@@ -85,7 +80,7 @@ var MemeInvasion = cc.LayerColor.extend({
        this.handleKey(e);
        this._personagem.handleKey(e);
         if(e === cc.KEY.p) {
-            this.pause();
+            GameControl.getCurrentInstance().pausePlay();
         }
         if(e === cc.KEY.enter) {
            SoundControl.getInstance().playGunSound();
@@ -102,13 +97,6 @@ var MemeInvasion = cc.LayerColor.extend({
     },
     recarregar:function() {
         this._possuiPoder = true;
-    },
-    pause:function() {
-        if( cc.Director.getInstance().isPaused() ){
-            cc.Director.getInstance().resume();
-        } else {
-            cc.Director.getInstance().pause();
-        }
     }
 });
 

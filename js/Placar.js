@@ -1,22 +1,18 @@
-var Placar = cc.LabelAtlas.extend({
+var Placar = cc.LabelTTF.extend({
 	_control:null,
-	ctor:function(control) {
-        this._super();
-		this._control = control;
-        var label1 = this.criarPlacar();
-        //this.initWithString([label1, './images/tuffy_bold_italic-charmap.png',  48, 64, ' ']);
-        this.initWithString([label1, './images/tuffy_bold_italic-charmap.png',  48, 64, ' ']);
-        this.schedule(this.update);
-        return true;
+	ctor:function() {
+        this = cc.LabelTTF.create("0", "Helvetica", 32);
+        this.schedule(this.update());
     },
 
-    criarPlacar:function() {
+    getPlacarLabel:function() {
     	var label = "";
-    	label = "Pontos:" + this._control.getPoints() + "Fase:"+ this._control.getFaseNumber();
+    	label = "Pontos:" + GameControl.getCurrentInstance().getPoints() + 
+                "Fase:"+ GameControl.getCurrentInstance().getFaseNumber();
         return label;
     },
 
     update:function(){
-        this.setString(this.criarPlacar());
+        this.setString(this.getPlacarLabel());
     }
 });
