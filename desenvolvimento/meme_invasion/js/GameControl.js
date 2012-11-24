@@ -49,6 +49,14 @@ var GameControl =  function() {
 		this.vidas = 0;
 	};
 
+	this.pausePlay = function() {
+		if( cc.Director.getInstance().isPaused() ){
+            cc.Director.getInstance().resume();
+        } else {
+            cc.Director.getInstance().pause();
+        }
+	};
+
 	this.isVitoria = function() {
 		if( this.MAX_FASES <= this.fase_number ) {
 			return true;
