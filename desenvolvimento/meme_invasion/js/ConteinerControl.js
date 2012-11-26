@@ -41,10 +41,6 @@ var ConteinerControl =  function() {
         }
 
         for(var i = 0; i < lista.length; i++) {
-            if(count != lista.length) {
-                count = lista.length;
-                console.log("List size: "+lista.length);
-            }
           child = lista[i];
           
           if(child instanceof Poder) {
