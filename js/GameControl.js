@@ -5,6 +5,8 @@ var GameControl =  function() {
 	this.fase_number = 1;
 	this.vidas = 10;
 	this.points = 0;
+	this.municao = 30;
+	this.recarregando = false;
 	
 	this.marcarPonto = function() {
 		this.points++;
@@ -71,7 +73,37 @@ var GameControl =  function() {
 		} else {
 			return false;
 		}
-	}
+	};
+
+	this.getMunicao = function() {
+        return this.municao;
+    };
+
+    this.utilizarMunicao = function() {
+        this.municao--;
+    };
+
+	this.possuiMunicao = function() {
+        if(this.municao > 0) {
+            return true;
+        }
+        return false;
+    };
+
+    this.recarregarMunicao = function(municao) {
+        this.municao += municao;
+        this.recarregando = false;
+    }
+
+    this.recarregar = function() {
+    	if(!this.recarregando) {
+    		this.recarregando = true;
+    		var self  = this;
+	        setTimeout(function(){
+	            self.recarregarMunicao(30);
+	        }, 2000);
+    	}
+    }
 	
 };
 
