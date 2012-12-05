@@ -1,7 +1,7 @@
 var Placar = cc.LabelTTF.extend({
 	_control:null,
 	ctor:function() {
-        this = cc.LabelTTF.create("0", "Helvetica", 32);
+        cc.LabelTTF.create("0", "Helvetica", 32);
         this.schedule(this.update());
     },
 

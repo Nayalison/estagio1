@@ -1,34 +1,25 @@
 var MenuLayer = cc.Layer.extend({   
-    ctor:function(){
-	   this.setTouchEnabled( true );   	
-    	var label = cc.LabelTTF.create( "Jogar", "Helvetica", 64 );
-        var menuitem = cc.MenuItemLabel.create( label, this, function() {
-                cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new MemeInvasionScene()));
-        });
+    ctor:function() {
+      this.setTouchEnabled(true);
+      this.setKeyboardEnabled(true);
+      var size = cc.Director.getInstance().getWinSize();   	
+      var sprite= cc.Sprite.create("./images/meme_invasion_principal.jpg");
+      sprite.setPosition(cc.p(size.width / 2, size.height / 2));
+      this.addChild(sprite);
+      
+      var itemJogar = cc.MenuItemImage.create(img_botao_jogar, img_botao_jogar, this, this.iniciarJogo);
+      var menuJogar = cc.Menu.create(itemJogar);
 
-        var menu = cc.Menu.create(menuitem);
+      menuJogar.setPosition( cc.p(size.width / 2, 70 ) );
+      this.addChild(menuJogar);
+    },
 
-        menu.setPosition( cc.p( 300, 250 ) );
-        this.addChild(menu);
+    iniciarJogo:function() {
+        cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new MemeInvasionScene()));
     }
 });
 
-var MenuDerrota = cc.Layer.extend({   
-    ctor:function(){
-       this.setTouchEnabled( true );    
-        var label = cc.LabelTTF.create( "Jogar Novamente", "Helvetica", 32 );
-        var menuitem = cc.MenuItemLabel.create( label, this, function() {
-                cc.Director.getInstance().replaceScene(cc.TransitionFade.create(0.5,new MemeInvasionScene()));
-        });
-
-        var menu = cc.Menu.create(menuitem);
-
-        menu.setPosition( cc.p( 400, 20 ) );
-        this.addChild(menu);
-    }
-});
-
-var MenuScene = cc.Scene.extend({
+MenuScene = cc.Scene.extend({
 	onEnter:function(){
 		this._super();
 		var layer = new MenuLayer();

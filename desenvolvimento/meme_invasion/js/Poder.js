@@ -1,8 +1,8 @@
 var Poder = cc.Sprite.extend({
     _size:null,
     ctor:function() {
-		this.initWithFile("./images/bala.gif");
-         this._size = cc.Director.getInstance().getWinSize();
+		this.initWithFile(img_bala);
+        this._size = cc.Director.getInstance().getWinSize();
         this.schedule(function() {
                 var position = new cc.Point(this.getPosition().x + 10, this.getPosition().y);
                 this.setPosition(position);

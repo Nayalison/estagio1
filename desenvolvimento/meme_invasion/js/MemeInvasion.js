@@ -1,4 +1,4 @@
-var MemeInvasion = cc.LayerColor.extend({
+var MemeInvasion = cc.Layer.extend({
 	 _personagem:null,
 	 _inimigoScene:null,
 	 _gameControl:null,
@@ -6,18 +6,26 @@ var MemeInvasion = cc.LayerColor.extend({
     init:function(){
         this._super();
         this._gameControl = GameControl.getInstance();
-        this.initWithColor(new cc.Color4B(100,100,100,100));
-
         var size = cc.Director.getInstance().getWinSize();
+
+
+        //this.initWithColor(new cc.Color4B(100,100,100,100));
+        this._sprite = cc.Sprite.create(img_background_jogo);
+        this._sprite.setPosition(cc.p(size.width / 2, size.height / 2));
+        this.addChild(this._sprite);
+
+
+       
 		
         this._personagem = new Personagem();
+        this._personagem.init();
         this.setTouchEnabled(true);
         this.setKeyboardEnabled(true);
 
         this.setPosition(new cc.Point(0,0));
 
         this.addChild(this._personagem,1,0);
-        this._personagem.setPosition(new cc.Point(0,size.height/2));
+        this._personagem.setPosition(new cc.Point(70,size.height/2));
         this._personagem.scheduleUpdate();
 		
 		_inimigoScene = new InimigoScene();

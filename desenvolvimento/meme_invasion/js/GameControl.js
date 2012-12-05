@@ -101,7 +101,7 @@ var GameControl =  function() {
     		var self  = this;
 	        setTimeout(function(){
 	            self.recarregarMunicao(30);
-	        }, 5000);
+	        }, 500);
     	}
     }
 	
