@@ -2,10 +2,8 @@ var countTipoInimigo = 0;
 var Inimigo = cc.Sprite.extend({
     _size:null,
 	_limiteX:0,
-	_memes: ["./images/memes/meme_lol.gif","./images/memes/meme_me_gusta.gif","./images/memes/meme_peter_paker.gif",
-			"./images/memes/meme_troll_face.gif", "./images/memes/meme_y_u.gif"],
     ctor:function() {
-		this.initWithFile(this._memes[countTipoInimigo]);
+		this.initWithFile(memes[countTipoInimigo]);
         this._size = cc.Director.getInstance().getWinSize();
         this._limiteX = -1 *  this.getTextureRect().size.width;
         
@@ -67,7 +65,7 @@ var InimigoScene = (function(){
 	
 	var criarInimigo = function() {
 		inimigo = new Inimigo();
-		inimigo.setPosition(new cc.Point(800, gerarNumero(63, 500)));
+		inimigo.setPosition(new cc.Point(800, gerarNumero(63, 300)));
 		return inimigo;
 	};
 	

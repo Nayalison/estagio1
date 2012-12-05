@@ -16,11 +16,7 @@ var cocos2dApp = cc.Application.extend({
         };
 
         cc.AudioEngine.getInstance().init("mp3,ogg,wav");
-        cc.Loader.shareLoader().preload([
-            {type:"effect",src:"./Resources/tiro"},
-            {type:"effect",src:"./Resources/bomb"},
-            {type:"bgm",src:"./Resources/background"}
-        ]);
+        cc.Loader.shareLoader().preload( g_ressources );
     },
     
     applicationDidFinishLaunching:function () {

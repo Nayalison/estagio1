@@ -21,7 +21,7 @@ var VitoriaScene = cc.Scene.extend({
 		
 		var lazyLayer = new cc.Layer.create();
 		this.addChild(lazyLayer);
-		var backgroundSprite = cc.Sprite.create("./images/meme_fred_mercury.gif");
+		var backgroundSprite = cc.Sprite.create(img_background_vitoria);
 
 		backgroundSprite.setPosition(cc.p(size.weight/2,size.height/2));
 		lazyLayer.addChild(backgroundSprite, 0);

@@ -1,5 +1,7 @@
 var Personagem = cc.Sprite.extend({
     _currentPosition:0,
+    _currentPositionX:70,
+    _limite:{minX:70,  maxX:150, minY:0, maxY:0},
 	_limiteInferior:0,
     _limiteSuperior:0,
     _size:null,
@@ -7,14 +9,20 @@ var Personagem = cc.Sprite.extend({
     _isFiring: false,
 
     ctor:function() {
-        this.initWithFile("./images/inimigo2.gif");
+        this.initWithFile(img_personagem);
+    },
+
+    init:function() {
         this._size = cc.Director.getInstance().getWinSize();
-        this._limiteInferior = this.getTextureRect().size.height/2;
-        this._limiteSuperior = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
+        this._limite.minY = this.getTextureRect().size.height/2;
+        this._limite.maxY = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
+
+        //this._limiteInferior = this.getTextureRect().size.height/2;
+        //this._limiteSuperior = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
     },
     
     update:function(dt) {
-		this.setPosition(new cc.Point(50, this._currentPosition));
+		this.setPosition(new cc.Point(this._currentPositionX, this._currentPosition));
     },
 
     afterCollision:function() {
@@ -32,9 +40,11 @@ var Personagem = cc.Sprite.extend({
 
         if(e === cc.KEY.up) {
             this._currentPosition = this._currentPosition + 10;
+            this._currentPositionX = this._currentPositionX + 5;
         }
         else if(e === cc.KEY.down) {
             this._currentPosition = this._currentPosition - 10;
+            this._currentPositionX = this._currentPositionX - 5;
 		}
 		this.validatePosition();
     },
@@ -51,8 +61,21 @@ var Personagem = cc.Sprite.extend({
 	
 	validatePosition:function() {
         this.getTextureRect();
-		if(this._currentPosition < this._limiteInferior) this._currentPosition = this._limiteInferior;
-        if(this._currentPosition > this._limiteSuperior) this._currentPosition = this._limiteSuperior;
+		if(this._currentPosition < this._limite.minY)  {
+            this._currentPosition = this._limite.minY;
+        } 
+        if(this._currentPosition > this._limite.maxY) {
+            this._currentPosition = this._limite.maxY;
+        }
+
+        if(this._currentPositionX < this._limite.minX)  {
+            this._currentPositionX = this._limite.minX;
+        } 
+        if(this._currentPositionX > this._limite.maxX) {
+            this._currentPositionX = this._limite.maxX;
+        }
+
+        
 	},
 	
     handleTouchMove:function(touchLocation) {
@@ -65,7 +88,10 @@ var Personagem = cc.Sprite.extend({
             this._isFiring = true;
             setTimeout(function(){
                 self._isFiring = false; 
-                SoundControl.getInstance().pauseGunSound();       
+                SoundControl.getInstance().pauseGunSound();
+                //self.setPosition(new cc.Point(self.getPosition().x-10, self.getPosition().y));       
+                self.setRotation(0);
+                self.initWithFile(img_personagem);
             },200);
 
             var psition = this.getPosition();
@@ -74,6 +100,11 @@ var Personagem = cc.Sprite.extend({
             ConteinerControl.getInstance().addChild(poder);
             GameControl.getCurrentInstance().utilizarMunicao();
             SoundControl.getInstance().playGunSound();
+
+            this.setRotation(-10);
+            this.initWithFile(img_personagem_atirando);
+
+            //this.setPosition(new cc.Point(this.getPosition().x+10, this.getPosition().y));
         }
        
         
