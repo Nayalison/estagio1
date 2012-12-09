@@ -28,7 +28,7 @@ var DerrotaScene = cc.Scene.extend({
 
 		
 
-		var backgroundSprite = cc.Sprite.create(img_background_derrota);
+		var backgroundSprite = cc.Sprite.create(background_derrota[GameControl.getCurrentInstance().getFaseNumber() - 1]);
 		backgroundSprite.setPosition(cc.p(size.weight/2,size.height/2));
 		lazyLayer.addChild(backgroundSprite, 0);
 

@@ -39,11 +39,11 @@ var Personagem = cc.Sprite.extend({
 
         if(e === cc.KEY.up) {
             this._currentPosition = this._currentPosition + 10;
-            this._currentPositionX = this._currentPositionX + 5;
+            //this._currentPositionX = this._currentPositionX + 5;
         }
         else if(e === cc.KEY.down) {
             this._currentPosition = this._currentPosition - 10;
-            this._currentPositionX = this._currentPositionX - 5;
+          //  this._currentPositionX = this._currentPositionX - 5;
 		}
 		this.validatePosition();
     },
