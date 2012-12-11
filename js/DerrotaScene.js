@@ -17,10 +17,18 @@ var DerrotaScene = cc.Scene.extend({
 	onEnter:function(){
 		this._super();
 		SoundControl.getInstance().stopBackgroundMusic();
+		
 		var lazyLayer = new cc.Layer.create();
-		var size = cc.Director.getInstance().getWinSize();
 		this.addChild(lazyLayer);
-		var backgroundSprite = cc.Sprite.create(img_background_derrota);
+		var size = cc.Director.getInstance().getWinSize();
+
+		var sprite = cc.Sprite.create(img_background_jogo);
+        sprite.setPosition(cc.p(size.width / 2, size.height / 2));
+        lazyLayer.addChild(sprite);
+
+		
+
+		var backgroundSprite = cc.Sprite.create(background_derrota[GameControl.getCurrentInstance().getFaseNumber() - 1]);
 		backgroundSprite.setPosition(cc.p(size.weight/2,size.height/2));
 		lazyLayer.addChild(backgroundSprite, 0);
 

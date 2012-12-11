@@ -1,7 +1,7 @@
 var Personagem = cc.Sprite.extend({
     _currentPosition:0,
     _currentPositionX:70,
-    _limite:{minX:70,  maxX:150, minY:0, maxY:0},
+    _limite:{minX:70,  maxX:150, minY:0, maxY:320},
 	_limiteInferior:0,
     _limiteSuperior:0,
     _size:null,
@@ -15,7 +15,6 @@ var Personagem = cc.Sprite.extend({
     init:function() {
         this._size = cc.Director.getInstance().getWinSize();
         this._limite.minY = this.getTextureRect().size.height/2;
-        this._limite.maxY = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
 
         //this._limiteInferior = this.getTextureRect().size.height/2;
         //this._limiteSuperior = this._size.height - this.getTextureRect().size.height/2 - this._sizePlacar;
@@ -30,7 +29,7 @@ var Personagem = cc.Sprite.extend({
     },
     
     handleKey:function(e) {
-        if(e === cc.KEY.enter ) {
+        if(e === cc.KEY.enter || e === cc.KEY.space) {
             this.atirar();
         }
 
@@ -38,13 +37,13 @@ var Personagem = cc.Sprite.extend({
              GameControl.getCurrentInstance().recarregar();
         }
 
-        if(e === cc.KEY.up) {
+        if(e === cc.KEY.up || e === cc.KEY.w) {
             this._currentPosition = this._currentPosition + 10;
-            this._currentPositionX = this._currentPositionX + 5;
+            //this._currentPositionX = this._currentPositionX + 5;
         }
-        else if(e === cc.KEY.down) {
+        else if(e === cc.KEY.down  || e === cc.KEY.s) {
             this._currentPosition = this._currentPosition - 10;
-            this._currentPositionX = this._currentPositionX - 5;
+          //  this._currentPositionX = this._currentPositionX - 5;
 		}
 		this.validatePosition();
     },
@@ -88,8 +87,7 @@ var Personagem = cc.Sprite.extend({
             this._isFiring = true;
             setTimeout(function(){
                 self._isFiring = false; 
-                SoundControl.getInstance().pauseGunSound();
-                //self.setPosition(new cc.Point(self.getPosition().x-10, self.getPosition().y));       
+                SoundControl.getInstance().pauseGunSound();     
                 self.setRotation(0);
                 self.initWithFile(img_personagem);
             },200);
@@ -103,8 +101,6 @@ var Personagem = cc.Sprite.extend({
 
             this.setRotation(-10);
             this.initWithFile(img_personagem_atirando);
-
-            //this.setPosition(new cc.Point(this.getPosition().x+10, this.getPosition().y));
         }
        
         
