@@ -17,6 +17,6 @@ var Poder = cc.Sprite.extend({
 		 }
     },
     afterCollision:function() {
-        GameControl.getCurrentInstance().marcarPonto();
+        GameControl.getInstance().marcarPonto();
     }
 });

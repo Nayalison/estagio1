@@ -5,6 +5,7 @@ var MemeInvasion = cc.Layer.extend({
      _placar:null,
     init:function(){
         this._super();
+        GameControl.getInstance().resetValues();
         this._gameControl = GameControl.getInstance();
         var size = cc.Director.getInstance().getWinSize();
 

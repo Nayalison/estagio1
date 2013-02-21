@@ -25,7 +25,7 @@ var Personagem = cc.Sprite.extend({
     },
 
     afterCollision:function() {
-        GameControl.getCurrentInstance().gameOver();
+        GameControl.getInstance().gameOver();
     },
     
     handleKey:function(e) {
@@ -34,7 +34,7 @@ var Personagem = cc.Sprite.extend({
         }
 
         if(e === cc.KEY.r ) {
-             GameControl.getCurrentInstance().recarregar();
+             GameControl.getInstance().recarregar();
         }
 
         if(e === cc.KEY.up) {
@@ -82,7 +82,7 @@ var Personagem = cc.Sprite.extend({
 		this.validatePosition();
     },
     atirar:function() {
-        if(!this._isFiring && GameControl.getCurrentInstance().possuiMunicao()) {
+        if(!this._isFiring && GameControl.getInstance().possuiMunicao()) {
             var self = this;
             this._isFiring = true;
             setTimeout(function(){
@@ -97,7 +97,7 @@ var Personagem = cc.Sprite.extend({
             var poder = new Poder();
             poder.setPosition(cc.p(psition.x + this.getTextureRect().size.width/2, psition.y));
             ConteinerControl.getInstance().addChild(poder);
-            GameControl.getCurrentInstance().utilizarMunicao();
+            GameControl.getInstance().utilizarMunicao();
             SoundControl.getInstance().playGunSound();
 
             this.setRotation(-10);

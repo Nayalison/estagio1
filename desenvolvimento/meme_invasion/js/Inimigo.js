@@ -13,7 +13,7 @@ var Inimigo = cc.Sprite.extend({
         }
 		
         this.schedule(function() {
-                var position = new cc.Point(this.getPosition().x - GameControl.getCurrentInstance().getVelocidadeInimigo(), this.getPosition().y);
+                var position = new cc.Point(this.getPosition().x - GameControl.getInstance().getVelocidadeInimigo(), this.getPosition().y);
                 this.setPosition(this.validatePosition(position));
                 this.process();
             });
@@ -41,7 +41,7 @@ var Inimigo = cc.Sprite.extend({
 
     process:function() {
     	if(this.getPosition().x <= this._limiteX) {
-			GameControl.getCurrentInstance().perderVida();
+			GameControl.getInstance().perderVida();
 			ConteinerControl.getInstance().removeChild(this);
 		}
     }
@@ -54,7 +54,7 @@ var InimigoScene = (function(){
 	//TODO refatorar
 	this.init = function() {
 		setInterval(function() {
-			var control = GameControl.getCurrentInstance();
+			var control = GameControl.getInstance();
 			var count = gerarNumero(1,control.getNumeroInimigosFase);
 				for(i=1; i<= control.getNumeroInimigosFase(); i++) {
 					var inimigo = criarInimigo();
