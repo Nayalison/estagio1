@@ -29,19 +29,15 @@ var Personagem = cc.Sprite.extend({
     },
     
     handleKey:function(e) {
-        if(e === cc.KEY.enter ) {
+        if(e === cc.KEY.enter || e === cc.KEY.space) {
             this.atirar();
         }
 
-        if(e === cc.KEY.r ) {
-             GameControl.getInstance().recarregar();
-        }
-
-        if(e === cc.KEY.up) {
+        if(e === cc.KEY.up || e === cc.KEY.w) {
             this._currentPosition = this._currentPosition + 10;
             //this._currentPositionX = this._currentPositionX + 5;
         }
-        else if(e === cc.KEY.down) {
+        else if(e === cc.KEY.down || e === cc.KEY.s) {
             this._currentPosition = this._currentPosition - 10;
           //  this._currentPositionX = this._currentPositionX - 5;
 		}
@@ -82,28 +78,33 @@ var Personagem = cc.Sprite.extend({
 		this.validatePosition();
     },
     atirar:function() {
-        if(!this._isFiring && GameControl.getInstance().possuiMunicao()) {
-            var self = this;
-            this._isFiring = true;
-            setTimeout(function(){
-                self._isFiring = false; 
-                SoundControl.getInstance().pauseGunSound();
-                //self.setPosition(new cc.Point(self.getPosition().x-10, self.getPosition().y));       
-                self.setRotation(0);
-                self.initWithFile(img_personagem);
-            },200);
+        if(!this._isFiring) {
+            if(GameControl.getInstance().possuiMunicao()){
+                var self = this;
+                this._isFiring = true;
+                setTimeout(function(){
+                    self._isFiring = false; 
+                    SoundControl.getInstance().pauseGunSound();
+                    //self.setPosition(new cc.Point(self.getPosition().x-10, self.getPosition().y));       
+                    self.setRotation(0);
+                    self.initWithFile(img_personagem);
+                },200);
 
-            var psition = this.getPosition();
-            var poder = new Poder();
-            poder.setPosition(cc.p(psition.x + this.getTextureRect().size.width/2, psition.y));
-            ConteinerControl.getInstance().addChild(poder);
-            GameControl.getInstance().utilizarMunicao();
-            SoundControl.getInstance().playGunSound();
+                var psition = this.getPosition();
+                var poder = new Poder();
+                poder.setPosition(cc.p(psition.x + this.getTextureRect().size.width/2, psition.y));
+                ConteinerControl.getInstance().addChild(poder);
+                GameControl.getInstance().utilizarMunicao();
+                SoundControl.getInstance().playGunSound();
 
-            this.setRotation(-10);
-            this.initWithFile(img_personagem_atirando);
+                this.setRotation(-10);
+                this.initWithFile(img_personagem_atirando);
 
-            //this.setPosition(new cc.Point(this.getPosition().x+10, this.getPosition().y));
+                //this.setPosition(new cc.Point(this.getPosition().x+10, this.getPosition().y));
+
+            } else {
+                 GameControl.getInstance().recarregar();
+            }  
         }
        
         
