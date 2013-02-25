@@ -7,8 +7,8 @@ var Placar = cc.LabelTTF.extend({
 
     getPlacarLabel:function() {
     	var label = "";
-    	label = "Pontos:" + GameControl.getCurrentInstance().getPoints() + 
-                "Fase:"+ GameControl.getCurrentInstance().getFaseNumber();
+    	label = "Pontos:" + GameControl.getInstance().getPoints() + 
+                "Fase:"+ GameControl.getInstance().getFaseNumber();
         return label;
     },
 
